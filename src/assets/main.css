@@ -1,0 +1,96 @@
+@import './base.css';
+
+/* #app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+} */
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  /* #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  } */
+}
+
+
+.task-list {
+  min-height: 100vh;
+}
+
+.goal-text {
+  color: #8D61D6;
+}
+i {
+  color: #A5A5A5;
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Container for the custom checkbox */
+.round-checkbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Create the round circle background */
+.round-checkbox .checkmark {
+  position: absolute;
+  bottom: -4px;
+  left: 4px;
+  height: 25px;
+  width: 25px;
+  background-color: #ddd;
+  border-radius: 50%; /* Makes it round */
+}
+
+/* Show checkmark when checkbox is checked */
+input[type="checkbox"]:checked + .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.round-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 8px;
+  top: 4px;
+  width: 8px;
+  height: 14px;
+  border: solid #8e44ad; /* Purple checkmark */
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* Change background color when the checkbox is checked */
+input[type="checkbox"]:checked + .checkmark {
+  background-color: #eee;
+}

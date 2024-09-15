@@ -1,0 +1,13 @@
+import { ref, type Ref } from 'vue'
+
+export function useFetch(url : Ref<string, string>) {
+  const data = ref(null)
+  const error = ref(null)
+
+  fetch(url.value)
+    .then((res) => res.json())
+    .then((json) => (data.value = json))
+    .catch((err) => (error.value = err))
+
+  return { data, error }
+}
