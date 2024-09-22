@@ -2,34 +2,17 @@
 
 <script>
 import { ref, watchEffect } from 'vue';
-import TheWelcome from '../components/TheWelcome.vue';
 import TaskComponent from '../components/TaskComponent.vue';
 import { useFetch } from '@/composable/fetch';
+import ListComponent from '@/components/ListComponent.vue';
+import TheWelcome from '@/components/TheWelcome.vue';
 
 export default {
   components: {
     TheWelcome,
-    TaskComponent
-  },
-  setup() {
-    const url = ref('http://localhost:3000/task/');
-    const { data, error } = useFetch(url);
-
-    watchEffect(() => {
-      if (error.value) {
-        console.log('Error:', error.value);
-      } else if (data.value) {
-        console.log(data.value);
-      } else {
-        console.log('Loading');
-      }
-    });
-
-    return {
-      data,
-      error
-    };
+    ListComponent
   }
+  
 };
 </script>
 
@@ -38,11 +21,6 @@ export default {
 </style>
 
 <template>
-  <div>
-    <ul>
-      <li v-for="task in data" :key="task.id">
-        <TaskComponent :isCompleted="task.isCompleted" :title="task.title" :id="task.id"/>
-      </li>
-    </ul>
-  </div>
+  
+  <ListComponent />
 </template>
