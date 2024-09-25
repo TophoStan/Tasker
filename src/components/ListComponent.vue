@@ -1,4 +1,5 @@
 <script lang="ts">
+import type { Task } from '@/domain/Task.obj';
 import TaskComponent from '../components/TaskComponent.vue';
 import { ref, watch } from 'vue';
 
@@ -8,23 +9,37 @@ export default {
         TaskComponent
     },
     setup() {
-        const tasks = ref([] as any[]);
+        const tasks = ref([] as Task[]);
         const isLoading = ref(true);
 
+        const completedTasks = ref([] as Task[]);
+        const uncompletedTasks = ref([] as Task[]);
 
         const fetchTasks = async () => {
             const response = await fetch('http://localhost:3000/task');
             const data = await response.json();
 
-            isLoading.value = false;
             tasks.value = data;
+            completedTasks.value = data.filter((task: Task) => task.isCompleted);
+            uncompletedTasks.value = data.filter((task: Task) => !task.isCompleted);
 
+            
+            
+            
+            isLoading.value = false;
+            console.log('Fetching finished');
         }
         fetchTasks();
 
+        const ListenToUpdateTaskList = () => {
+            fetchTasks();
+        }
 
+        // setInterval(() => {
+        //     fetchTasks();
+        // }, 5000);
 
-        return { tasks, isLoading };
+        return { completedTasks, uncompletedTasks, isLoading, tasks, ListenToUpdateTaskList };
     },
 
 }
@@ -36,10 +51,25 @@ export default {
 
 <template>
     <div v-if="!isLoading">
-        <ul>
-            <li v-for="task in tasks" :key="task.id">
-                <TaskComponent :title="task.title" :id="task.id" :isCompleted="task.isCompleted" />
-            </li>
-        </ul>
+        <div>
+            <h2>To be completed</h2>
+            <ul>
+                <li v-for="task in uncompletedTasks" :key="task.id">
+                    <TaskComponent :task="task"
+                        @updateTaskList="ListenToUpdateTaskList"
+                        />
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2>Completed Tasks</h2>
+            <ul>
+                <li v-for="task  in completedTasks" :key="task.id">
+                    <TaskComponent :task="task"
+                        @updateTaskList="ListenToUpdateTaskList"
+                        />
+                </li>
+            </ul>
+        </div>
     </div>
 </template>

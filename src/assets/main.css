@@ -47,7 +47,7 @@ i {
 }
 
 /* Hide the default checkbox */
-input[type="checkbox"] {
+input.task[type="checkbox"] {
   display: none;
 }
 
@@ -72,7 +72,7 @@ input[type="checkbox"] {
 }
 
 /* Show checkmark when checkbox is checked */
-input[type="checkbox"]:checked + .checkmark:after {
+input.task[type="checkbox"]:checked + .checkmark:after {
   display: block;
 }
 
@@ -91,6 +91,6 @@ input[type="checkbox"]:checked + .checkmark:after {
 }
 
 /* Change background color when the checkbox is checked */
-input[type="checkbox"]:checked + .checkmark {
+input.task[type="checkbox"]:checked + .checkmark {
   background-color: #eee;
 }

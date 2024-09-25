@@ -1,5 +1,3 @@
-
-
 <script>
 import { ref, watchEffect } from 'vue';
 import TaskComponent from '../components/TaskComponent.vue';
@@ -11,8 +9,15 @@ export default {
   components: {
     TheWelcome,
     ListComponent
+  },
+  setup() {
+
+    const onAddTask = () => {
+      console.log('Button clicked');
+    }
+    return { onClick: onAddTask }
   }
-  
+
 };
 </script>
 
@@ -21,6 +26,14 @@ export default {
 </style>
 
 <template>
-  
-  <ListComponent />
+  <h1>Tasks for today</h1>
+  <div>
+    <ListComponent />
+
+    <div>
+      <a href="/create" @click="onClick">
+        +
+      </a>
+    </div>
+  </div>
 </template>

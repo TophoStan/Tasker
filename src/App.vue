@@ -7,7 +7,7 @@
 
 
 <template>
-  <h1>Tasks for today</h1>
+  
   <main>
     <RouterView />
   </main>
