@@ -11,6 +11,7 @@ export default {
     setup() {
         const tasks = ref([] as Task[]);
         const isLoading = ref(true);
+        const isEmpty = ref(false);
 
         const completedTasks = ref([] as Task[]);
         const uncompletedTasks = ref([] as Task[]);
@@ -23,10 +24,11 @@ export default {
             completedTasks.value = data.filter((task: Task) => task.isCompleted);
             uncompletedTasks.value = data.filter((task: Task) => !task.isCompleted);
 
-            
-            
-            
             isLoading.value = false;
+            if (tasks.value.length === 0) {
+                isEmpty.value = true;
+                console.log('No tasks found');                
+            } 
             console.log('Fetching finished');
         }
         fetchTasks();
@@ -35,11 +37,7 @@ export default {
             fetchTasks();
         }
 
-        // setInterval(() => {
-        //     fetchTasks();
-        // }, 5000);
-
-        return { completedTasks, uncompletedTasks, isLoading, tasks, ListenToUpdateTaskList };
+        return { completedTasks, uncompletedTasks, isLoading, tasks, ListenToUpdateTaskList, isEmpty };
     },
 
 }
@@ -50,26 +48,31 @@ export default {
 </script>
 
 <template>
-    <div v-if="!isLoading">
+    <div v-if="!isLoading && !isEmpty">
         <div>
             <h2>To be completed</h2>
             <ul>
-                <li v-for="task in uncompletedTasks" :key="task.id">
-                    <TaskComponent :task="task"
-                        @updateTaskList="ListenToUpdateTaskList"
-                        />
-                </li>
+                <template v-for="task in uncompletedTasks">
+                    <li v-if="!task.isOverdue" :key="task.id">
+                        <TaskComponent :task="task" @updateTaskList="ListenToUpdateTaskList" />
+                    </li>
+                </template>
             </ul>
         </div>
         <div>
             <h2>Completed Tasks</h2>
             <ul>
-                <li v-for="task  in completedTasks" :key="task.id">
-                    <TaskComponent :task="task"
-                        @updateTaskList="ListenToUpdateTaskList"
-                        />
-                </li>
+                <template v-for="task in completedTasks">
+                    <li v-if="!task.isOverdue" :key="task.id">
+                        <TaskComponent :task="task" @updateTaskList="ListenToUpdateTaskList" />
+                    </li>
+                </template>
             </ul>
         </div>
+    </div>
+    <div v-if="isEmpty">
+        <p>
+            No tasks found
+        </p>
     </div>
 </template>

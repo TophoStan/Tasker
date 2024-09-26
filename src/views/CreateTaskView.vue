@@ -1,10 +1,11 @@
 <script>
+import { ErrorMessage, Field, Form } from 'vee-validate';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 export default {
     setup() {
         const title = ref('')
-        const isDaily = ref(false)
+        const dueTo = ref({ date: new Date(new Date().setHours(23, 59, 59, 999)) })
 
         const router = useRouter()
         const createTask = () => {
@@ -16,8 +17,7 @@ export default {
                 body: JSON.stringify({
                     title: title.value,
                     isCompleted: false,
-                    isDaily: isDaily.value,
-                    DateTimeToBeCompletedBy: (isDaily.value) ?  new Date(new Date().setHours(23, 59, 59, 999)) : null
+                    DateTimeToBeCompletedBy: dueTo.value.date
                 })
             })
                 .then(response => response.json())
@@ -28,7 +28,29 @@ export default {
                 .catch(error => console.error('Error:', error))
         }
 
-        return { title, isDaily, createTask }
+        const disabledDates = ref([
+            //Every date before today is disabled
+            {
+                end: new Date(new Date().setHours(0, 0, 0, 0) - 1)
+            }
+        ])
+
+        const onSubmit = (values) => {
+
+            console.log(values);
+
+            // createTask();
+        }
+
+
+        const validateTitle = (value) => {
+            if (!value) {
+                return 'Title is required';
+            }
+            return true;
+        }
+
+        return { title, createTask, dueTo, disabledDates, onSubmit, validateTitle }
     }
 
 }
@@ -38,14 +60,20 @@ export default {
 
 <template>
     <div>
-        <div>
-            <label for="title">Title: </label>
-            <input v-model="title" placeholder="edit me" />
-        </div>
-        <div>
-            <label for="isDaily">Should this task be repeated every day?</label>
-            <input type="checkbox" v-model="isDaily">
-        </div>
-        <button @click="createTask">Create Task</button>
+        <Form @submit="onSubmit">
+            <div>
+                <label for="title">Title: </label>
+                <Field name="title" v-model="title" placeholder="edit me" :rules="validateTitle" />
+                <ErrorMessage name="title" />
+            </div>
+            <div>
+            </div>
+            <div>
+                <p>{{ dueTo.date }}</p>
+                <label for="due"></label>
+                <VDatePicker v-model="dueTo.date" mode="date" is-required :disabled-dates="disabledDates" />
+            </div>
+            <button>Create Task</button>
+        </Form>
     </div>
 </template>
