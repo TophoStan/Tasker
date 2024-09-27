@@ -35,11 +35,17 @@ export default {
             }
         ])
 
+        const disabledTimes = ref({
+            hours: {
+                min: new Date().getHours() + 1
+            }
+        })
+
         const onSubmit = (values) => {
 
             console.log(values);
 
-            // createTask();
+            createTask();
         }
 
 
@@ -50,7 +56,7 @@ export default {
             return true;
         }
 
-        return { title, createTask, dueTo, disabledDates, onSubmit, validateTitle }
+        return { title, createTask, dueTo, disabledDates, onSubmit, validateTitle, disabledTimes }
     }
 
 }
@@ -67,11 +73,11 @@ export default {
                 <ErrorMessage name="title" />
             </div>
             <div>
+                <Field name="dueDate" v-model="dueTo.date" class="invisible"/>
             </div>
             <div>
-                <p>{{ dueTo.date }}</p>
                 <label for="due"></label>
-                <VDatePicker v-model="dueTo.date" mode="date" is-required :disabled-dates="disabledDates" />
+                <VDatePicker v-model="dueTo.date" mode="dateTime" is-required :disabled-dates="disabledDates" :rules="disabledTimes" is24hr/>
             </div>
             <button>Create Task</button>
         </Form>

@@ -94,3 +94,6 @@ input.task[type="checkbox"]:checked + .checkmark:after {
 input.task[type="checkbox"]:checked + .checkmark {
   background-color: #eee;
 }
+.invisible {
+  display: none;
+}

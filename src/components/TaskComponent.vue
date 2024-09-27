@@ -69,7 +69,7 @@ const updateTaskStatus = () => {
         <span class="checkmark"></span>
       </label>
       <span><strong>{{ props.task.title }} </strong></span>
-      <p v-if="props.task.isDaily && !isCompleted"><i>Time left over to complete this task: {{ currentTimeLeft }}</i></p>
+      <p v-if="!isCompleted"><i>Time left over to complete this task: {{ currentTimeLeft }}</i></p>
     </div>
   </div>
 </template>
