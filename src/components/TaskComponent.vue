@@ -38,7 +38,7 @@ const updateTaskStatus = () => {
   isCompleted = !isCompleted
 
   //Update the task status
-  fetch(`http://localhost:3000/task/${props.task.id}`, {
+  fetch(`${import.meta.env.VITE_API_URL}/task/${props.task.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

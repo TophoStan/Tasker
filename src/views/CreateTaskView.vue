@@ -9,7 +9,7 @@ export default {
 
         const router = useRouter()
         const createTask = () => {
-            fetch('http://localhost:3000/task', {
+            fetch(`${import.meta.env.VITE_API_URL}/task`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

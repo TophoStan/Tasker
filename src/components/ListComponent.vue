@@ -17,7 +17,7 @@ export default {
         const uncompletedTasks = ref([] as Task[]);
 
         const fetchTasks = async () => {
-            const response = await fetch('http://localhost:3000/task');
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/task`);
             const data = await response.json();
 
             tasks.value = data;
