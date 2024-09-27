@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "run-p \"build-only {@}\" --",
     "build-only": "vite build",
+    "serve": "set PORT=4433 && serve dist",
     "dev": "vite  --host",
     "preview": "vite preview",
     "type-check": "vue-tsc --build --force"
