@@ -17,7 +17,7 @@ export default {
         const uncompletedTasks = ref([] as Task[]);
 
         const fetchTasks = async () => {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/task`);
+            const response = await fetch(`${"https://tasker-api-vwag.onrender.com"}/task`);
             const data = await response.json();
 
             tasks.value = data;
@@ -50,20 +50,20 @@ export default {
 <template>
     <div v-if="!isLoading && !isEmpty">
         <div>
-            <h2>To be completed</h2>
-            <ul>
+            <h2 class=" text-3xl text-primary font-medium" >To do:</h2>
+            <ul class="mt-2">
                 <template v-for="task in uncompletedTasks">
-                    <li v-if="!task.isOverdue" :key="task.id">
+                    <li class="mb-2" v-if="!task.isOverdue" :key="task.id">
                         <TaskComponent :task="task" @updateTaskList="ListenToUpdateTaskList" />
                     </li>
                 </template>
             </ul>
         </div>
         <div>
-            <h2>Completed Tasks</h2>
-            <ul>
+            <h2 class="text-3xl text-primary">Completed Tasks</h2>
+            <ul class="mt-2">
                 <template v-for="task in completedTasks">
-                    <li v-if="!task.isOverdue" :key="task.id">
+                    <li  class="mb-2" v-if="!task.isOverdue" :key="task.id">
                         <TaskComponent :task="task" @updateTaskList="ListenToUpdateTaskList" />
                     </li>
                 </template>

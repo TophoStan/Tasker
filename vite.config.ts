@@ -12,9 +12,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'My Awesome App',
-        short_name: 'MyApp',
-        description: 'My Awesome App description',
+        name: 'Today\'s Job',
+        short_name: 'Today\'s Job',
+        description: 'A simple application to manage your daily tasks',
         theme_color: '#ffffff',
         icons: [
           {

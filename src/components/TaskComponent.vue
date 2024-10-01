@@ -61,15 +61,15 @@ const updateTaskStatus = () => {
 </script>
 
 <template>
-  <div class="task">
+  <div class="task  bg-secondary-light rounded-lg p-3">
     <div v-if="!props.task.isOverdue">
 
-      <label class="round-checkbox">
+      <label class="round-checkbox mb-[-4px]">
         <input class="task" type="checkbox" :checked="isCompleted" v-on:click="updateTaskStatus" />
         <span class="checkmark"></span>
       </label>
-      <span><strong>{{ props.task.title }} </strong></span>
-      <p v-if="!isCompleted"><i>Time left over to complete this task: {{ currentTimeLeft }}</i></p>
+      <span class=" text-base font-medium">{{ props.task.title }} </span>
+      <p v-if="!isCompleted" class=" text-xs ml-10"><i>Time left: {{ currentTimeLeft }}</i></p>
     </div>
   </div>
 </template>

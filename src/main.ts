@@ -2,6 +2,8 @@ import './assets/main.css'
 import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
 import { ErrorMessage, Field, Form } from 'vee-validate';
 import 'v-calendar/style.css';
+//Tailwind
+import './index.css'
 
 // Use plugin defaults (optional)
 

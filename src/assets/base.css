@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
@@ -87,6 +91,3 @@ body {
 
 
 
-h1 {
-  text-decoration: underline;
-}

@@ -1,5 +1,7 @@
 @import './base.css';
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -42,9 +44,6 @@ a,
 .goal-text {
   color: #8D61D6;
 }
-i {
-  color: #A5A5A5;
-}
 
 /* Hide the default checkbox */
 input.task[type="checkbox"] {
@@ -67,7 +66,7 @@ input.task[type="checkbox"] {
   left: 4px;
   height: 25px;
   width: 25px;
-  background-color: #ddd;
+  background-color: #fbfbfe;
   border-radius: 50%; /* Makes it round */
 }
 
@@ -85,15 +84,41 @@ input.task[type="checkbox"]:checked + .checkmark:after {
   top: 4px;
   width: 8px;
   height: 14px;
-  border: solid #8e44ad; /* Purple checkmark */
+  border: solid #433bff; /* Purple checkmark */
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
 
 /* Change background color when the checkbox is checked */
 input.task[type="checkbox"]:checked + .checkmark {
-  background-color: #eee;
+  background-color: #fbfbfe;
 }
 .invisible {
   display: none;
+}
+
+.warning {
+  color: #f00;
+  font-size: larger;
+}
+
+main {
+  margin: 20px
+}
+/* h1 {
+  text-decoration: underline;
+  font-size: 4rem;
+} */
+
+
+.text-color {
+  color: #040316;
+}
+
+.background-color {
+  background-color: #fbfbfe;
+}
+
+li {
+  list-style-type: none;
 }
