@@ -10,7 +10,7 @@ export default {
         'primary': '#6d27ce',
         'secondary': '#dedcff',
         'accent': '#433bff',
-        'base': '#040316',
+        'base-black-color': '#040316',
         'secondary-light': '#6d27ce0d',
         'white': '#fbfbfe',
       }

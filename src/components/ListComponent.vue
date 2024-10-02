@@ -17,7 +17,13 @@ export default {
         const uncompletedTasks = ref([] as Task[]);
 
         const fetchTasks = async () => {
-            const response = await fetch(`${"https://tasker-api-vwag.onrender.com"}/task`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/task`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': localStorage.getItem('token')!
+                }
+            });
             const data = await response.json();
 
             tasks.value = data;
@@ -27,8 +33,8 @@ export default {
             isLoading.value = false;
             if (tasks.value.length === 0) {
                 isEmpty.value = true;
-                console.log('No tasks found');                
-            } 
+                console.log('No tasks found');
+            }
             console.log('Fetching finished');
         }
         fetchTasks();
@@ -50,7 +56,7 @@ export default {
 <template>
     <div v-if="!isLoading && !isEmpty">
         <div>
-            <h2 class=" text-3xl text-primary font-medium" >To do:</h2>
+            <h2 class=" text-3xl text-primary font-medium">To do:</h2>
             <ul class="mt-2">
                 <template v-for="task in uncompletedTasks">
                     <li class="mb-2" v-if="!task.isOverdue" :key="task.id">
@@ -63,7 +69,7 @@ export default {
             <h2 class="text-3xl text-primary">Completed Tasks</h2>
             <ul class="mt-2">
                 <template v-for="task in completedTasks">
-                    <li  class="mb-2" v-if="!task.isOverdue" :key="task.id">
+                    <li class="mb-2" v-if="!task.isOverdue" :key="task.id">
                         <TaskComponent :task="task" @updateTaskList="ListenToUpdateTaskList" />
                     </li>
                 </template>

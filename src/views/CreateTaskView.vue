@@ -12,7 +12,8 @@ export default {
             fetch(`${import.meta.env.VITE_API_URL}/task`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': localStorage.getItem('token')
                 },
                 body: JSON.stringify({
                     title: title.value,
@@ -78,7 +79,7 @@ export default {
                 <div>
                     <label class=" font-semibold" for="title">Task<span class="warning">*</span></label>
 
-                </div>
+                </div> 
                 <div>
                     <Field class=" rounded border-spacing-0 px-2 bg-white border-secondary border-2 w-full" name="title"
                         v-model="title" placeholder="Clean the room for once" :rules="validateTitle" />

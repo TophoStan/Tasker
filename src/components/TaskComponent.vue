@@ -41,7 +41,8 @@ const updateTaskStatus = () => {
   fetch(`${import.meta.env.VITE_API_URL}/task/${props.task.id}`, {
     method: 'PUT',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'authorization': localStorage.getItem('token')!
     },
     body: JSON.stringify({
       id: props.task.id,
