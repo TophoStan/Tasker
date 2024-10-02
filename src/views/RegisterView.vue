@@ -9,20 +9,23 @@ token.value = localStorage.getItem('token');
 
 const email = ref('');
 const password = ref('');
+const username = ref('');
 
 const onSubmit = (values: any) => {
 
     let mail = values.email;
     let pass = values.password;
+    let user = values.username;
 
-    fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             email: mail,
-            password: pass
+            password: pass,
+            username: user
         })
     }).then(response => {
         if (response.ok) {
@@ -32,11 +35,7 @@ const onSubmit = (values: any) => {
         }
     }).then(data => {
         console.log(data);
-        localStorage.setItem('token', data.token);
-        token.value = data.token;
-
-        router.replace('/');
-        router.push('/');
+        router.push('/login');
     }).catch(error => {
         console.error(error);
     });
@@ -47,9 +46,16 @@ const onSubmit = (values: any) => {
 
 <template>
     <div>
-        <h1 class=" text-5xl font-bold">Login</h1>
+        <h1 class=" text-5xl font-bold">Register</h1>
         <div class="bg-white p-4 rounded-lg border-secondary border-4">
             <Form @submit="onSubmit">
+                <div>
+                    <div>
+                        <label for="username">Your username:</label>
+                    </div>
+                    <Field class="rounded border-spacing-0 px-2 bg-white border-secondary border-2 w-full"
+                        name="username" v-model="username" placeholder="Prince william" type="username" />
+                </div>
                 <div>
                     <div>
                         <label for="email">Email address:</label>
@@ -64,14 +70,9 @@ const onSubmit = (values: any) => {
                     <Field class="rounded border-spacing-0 px-2 bg-white border-secondary border-2 w-full"
                         name="password" v-model="password" type="password" placeholder="Secret123" />
                 </div>
-                <div>
-                    <router-link to="register" class="pointer text-xs text-blue-300 hover:text-blue-600">Not registered
-                        yet?</router-link>
-                </div>
                 <div class="mt-4">
                     <button
-                        class="bg-primary rounded-lg px-3 pt-1 pb-2 text-md font-medium text-white hover:bg-secondary hover:text-primary">Log
-                        in</button>
+                        class="bg-primary rounded-lg px-3 pt-1 pb-2 text-md font-medium text-white hover:bg-secondary hover:text-primary">Register</button>
                 </div>
             </Form>
 
