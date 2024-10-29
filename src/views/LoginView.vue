@@ -9,11 +9,13 @@ token.value = localStorage.getItem('token');
 
 const email = ref('');
 const password = ref('');
-
+const errorMessage = ref('');
 const onSubmit = (values: any) => {
 
     let mail = values.email;
     let pass = values.password;
+    errorMessage.value = '';
+
 
     fetch(`${import.meta.env.VITE_API_URL}/user/login`, {
         method: 'POST',
@@ -28,10 +30,15 @@ const onSubmit = (values: any) => {
         if (response.ok) {
             return response.json();
         } else {
-            throw new Error('Something went wrong');
+            response.json().then(data => {
+                errorMessage.value = data.message;
+            });
+            
+            throw new Error('Network response was not ok.');
         }
     }).then(data => {
-        console.log(data);
+        console.log('Success');
+        
         localStorage.setItem('token', data.token);
         token.value = data.token;
 
@@ -68,6 +75,7 @@ const onSubmit = (values: any) => {
                     <router-link to="register" class="pointer text-xs text-blue-300 hover:text-blue-600">Not registered
                         yet?</router-link>
                 </div>
+                <p class=" text-red-600">{{ errorMessage }}</p>
                 <div class="mt-4">
                     <button
                         class="bg-primary rounded-lg px-3 pt-1 pb-2 text-md font-medium text-white hover:bg-secondary hover:text-primary">Log
